@@ -24,7 +24,7 @@ class ProgressBar: UIView {
         super.layoutSubviews()
         let gradient: CAGradientLayer = CAGradientLayer()
         
-        gradient.colors = [UIColor.progressBarGreen?.cgColor, UIColor.progressBarRed?.cgColor]
+        gradient.colors = [UIColor.progressBarGreen.cgColor, UIColor.progressBarRed.cgColor]
         gradient.locations = [0.0 , 1.00]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)

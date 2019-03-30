@@ -14,6 +14,9 @@
 		7E5B91EE224FE06000B09233 /* TaboolaHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91ED224FE06000B09233 /* TaboolaHeader.swift */; };
 		7E5B91F122501D9700B09233 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F022501D9700B09233 /* Arrow.swift */; };
 		7E5B91F322501E2100B09233 /* Bezier+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F222501E2100B09233 /* Bezier+Extension.swift */; };
+		7E5B91F522502F6E00B09233 /* ModelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F422502F6E00B09233 /* ModelsViewController.swift */; };
+		7E5B91F722502FB500B09233 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F622502FB500B09233 /* Model.swift */; };
+		7E5B91F9225031D900B09233 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E5B91F8225031D900B09233 /* GoogleService-Info.plist */; };
 		7EB9BB65224F3BD500038CEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB63224F3BD500038CEB /* Main.storyboard */; };
 		7EB9BB67224F3BD600038CEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB66224F3BD600038CEB /* Assets.xcassets */; };
 		7EB9BB6A224F3BD600038CEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB68224F3BD600038CEB /* LaunchScreen.storyboard */; };
@@ -40,6 +43,9 @@
 		7E5B91ED224FE06000B09233 /* TaboolaHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaboolaHeader.swift; sourceTree = "<group>"; };
 		7E5B91F022501D9700B09233 /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		7E5B91F222501E2100B09233 /* Bezier+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bezier+Extension.swift"; sourceTree = "<group>"; };
+		7E5B91F422502F6E00B09233 /* ModelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsViewController.swift; sourceTree = "<group>"; };
+		7E5B91F622502FB500B09233 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		7E5B91F8225031D900B09233 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7EB9BB5C224F3BD500038CEB /* Fairify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fairify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB9BB64224F3BD500038CEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7EB9BB66224F3BD600038CEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -150,6 +156,7 @@
 				7EB9BB66224F3BD600038CEB /* Assets.xcassets */,
 				7EB9BB68224F3BD600038CEB /* LaunchScreen.storyboard */,
 				7EB9BB6B224F3BD600038CEB /* Info.plist */,
+				7E5B91F8225031D900B09233 /* GoogleService-Info.plist */,
 				7EB9BB84224F446C00038CEB /* Arial Black.ttf */,
 			);
 			path = Fairify;
@@ -161,6 +168,7 @@
 				7EB9BB7C224F3DCA00038CEB /* Community */,
 				7EB9BB72224F3C2700038CEB /* HomeViewController.swift */,
 				7EB9BB7A224F3CDD00038CEB /* DashboardViewController.swift */,
+				7E5B91F422502F6E00B09233 /* ModelsViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -204,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB9BB89224F552B00038CEB /* Analogy.swift */,
+				7E5B91F622502FB500B09233 /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,6 +287,7 @@
 			files = (
 				7EB9BB6A224F3BD600038CEB /* LaunchScreen.storyboard in Resources */,
 				7EB9BB85224F451200038CEB /* Arial Black.ttf in Resources */,
+				7E5B91F9225031D900B09233 /* GoogleService-Info.plist in Resources */,
 				7EB9BB67224F3BD600038CEB /* Assets.xcassets in Resources */,
 				7EB9BB65224F3BD500038CEB /* Main.storyboard in Resources */,
 			);
@@ -341,6 +351,7 @@
 			files = (
 				7E5B91E7224F659000B09233 /* AnalogyLabel.swift in Sources */,
 				7E5B91F122501D9700B09233 /* Arrow.swift in Sources */,
+				7E5B91F522502F6E00B09233 /* ModelsViewController.swift in Sources */,
 				7EB9BB7E224F3DD500038CEB /* CommunityViewController.swift in Sources */,
 				7EB9BB93224F5CC900038CEB /* ProgressBar.swift in Sources */,
 				7EB9BB8E224F578C00038CEB /* CardView.swift in Sources */,
@@ -354,6 +365,7 @@
 				7EB9BB7B224F3CDD00038CEB /* DashboardViewController.swift in Sources */,
 				7E5B91EC224FDA3500B09233 /* VectorView.swift in Sources */,
 				7EB9BB75224F3C2800038CEB /* HomeViewController.swift in Sources */,
+				7E5B91F722502FB500B09233 /* Model.swift in Sources */,
 				7EB9BB87224F54E800038CEB /* AnalogyTableViewCell.swift in Sources */,
 				7E5B91EE224FE06000B09233 /* TaboolaHeader.swift in Sources */,
 			);

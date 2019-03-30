@@ -55,6 +55,17 @@ class DashboardViewController: UIViewController {
         return t
     }()
     
+    var model: Model
+    
+    init(model: Model) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -106,8 +117,8 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let a = Analogy()
-        let cell = AnalogyTableViewCell(analogy: a)
+        
+        let cell = AnalogyTableViewCell()
         cell.staticAnalogyStartLabel.text = "Man"
         cell.staticAnalogyEndLabel.text = "Professor"
         cell.changingAnalogyStartLabel.text = "Woman"
@@ -116,6 +127,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         cell.fixButton.tag = indexPath.row
         cell.fixButton.addTarget(self, action: #selector(fixPressed(_:)), for: .touchUpInside)
         cell.layoutIfNeeded()
+        cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: 0.5, y: 0.5))
         return cell
     }
     

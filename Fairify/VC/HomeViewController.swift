@@ -87,7 +87,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func moveToDashboard(_ sender: UIButton) {
-        let vc = DashboardViewController()
+        let vc = ModelsViewController()
         show(vc, sender: self)
     }
     

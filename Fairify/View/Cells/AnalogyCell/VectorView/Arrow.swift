@@ -10,8 +10,13 @@ import UIKit
 
 class Arrow: UIView {
 
-    override init(frame: CGRect) {
+    var color: UIColor
+    
+    init(frame: CGRect, color: UIColor) {
+        self.color = color
         super.init(frame: frame)
+        
+        backgroundColor = .clear
         
     }
     
@@ -19,15 +24,20 @@ class Arrow: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func animate() {
-        
+    func animate(newFrame: CGRect) {
+        UIView.animate(withDuration: 3.0) {
+            self.frame = newFrame
+        }
     }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        let topRight = CGPoint(x: rect.maxX, y: rect.maxY)
-        let path = UIBezierPath.bezierPathWithArrowFromPoint(startPoint: rect.origin, endPoint: topRight, tailWidth: 3, headWidth: 3, headLength: 3)    
+        let origin = CGPoint(x: rect.minX, y: rect.maxY)
+        let topRight = CGPoint(x: rect.maxX, y: rect.minY)
+        let path = UIBezierPath.bezierPathWithArrowFromPoint(startPoint: origin, endPoint: topRight, tailWidth: 1, headWidth: 8, headLength: 10)
+        color.setStroke()
+        color.setFill()
         path.stroke()
+        path.fill()
     }
-    
 }

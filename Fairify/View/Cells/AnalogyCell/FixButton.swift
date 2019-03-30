@@ -22,7 +22,7 @@ class FixButton: UIButton {
         backgroundColor = .fixButtonFill
         
         layer.borderWidth = 5.0
-        layer.borderColor = UIColor.fixButtonGreen?.cgColor
+        layer.borderColor = UIColor.fixButtonGreen.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {

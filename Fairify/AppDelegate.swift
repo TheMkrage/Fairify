@@ -7,18 +7,20 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         // ViewController and TabItem setup
         let vc = UINavigationController(rootViewController: HomeViewController())
+        
+        FirebaseApp.configure()
         
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()

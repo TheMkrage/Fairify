@@ -79,7 +79,7 @@ class AnalogyTableViewCell: UITableViewCell {
         }
     }
     
-    init(analogy: Analogy) {
+    init() {
         self.isDisplayedTaboolaHeader = true
         defer {
             self.isDisplayedTaboolaHeader = true
@@ -157,9 +157,9 @@ class AnalogyTableViewCell: UITableViewCell {
         fixButton.widthAnchor == 55
         
         vectorView.centerYAnchor == fixButton.centerYAnchor
-        vectorView.leadingAnchor == cardView.leadingAnchor + 20
-        vectorView.heightAnchor == 50
-        vectorView.widthAnchor == 50
+        vectorView.leadingAnchor == cardView.leadingAnchor + 22
+        vectorView.heightAnchor == 60
+        vectorView.widthAnchor == 60
         
         fixButton.bottomAnchor == cardView.bottomAnchor - 15
     }
