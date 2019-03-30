@@ -16,6 +16,11 @@ class AnalogyTableViewCell: UITableViewCell {
         return c
     }()
     
+    var taboolaHeader: TaboolaHeader = {
+        let t = TaboolaHeader()
+        return t
+    }()
+    
     var staticAnalogyStartLabel: AnalogyLabel = {
         let l = AnalogyLabel(state: .normal)
         l.textAlignment = .right
@@ -58,25 +63,42 @@ class AnalogyTableViewCell: UITableViewCell {
         return l
     }()
     
-    var fixButton: UIButton = {
-        let b = UIButton()
-        b.setTitle("Fix", for: .normal)
+    var fixButton: FixButton = {
+        let b = FixButton()
         return b
     }()
     
+    let vectorView: VectorView = {
+        let v = VectorView()
+        return v
+    }()
+    
+    var isDisplayedTaboolaHeader: Bool {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
+    
     init(analogy: Analogy) {
+        self.isDisplayedTaboolaHeader = true
+        defer {
+            self.isDisplayedTaboolaHeader = true
+        }
         super.init(style: .default, reuseIdentifier: "Analogy")
-        
         backgroundColor = .clear
         selectionStyle = .none
-        addSubview(cardView)
+        contentView.addSubview(cardView)
         
+        cardView.addSubview(taboolaHeader)
         cardView.addSubview(staticAnalogyStartLabel)
         cardView.addSubview(staticAnalogyEndLabel)
         cardView.addSubview(changingAnalogyStartLabel)
         cardView.addSubview(changingAnalogyEndLabel)
         cardView.addSubview(isToLabel1)
         cardView.addSubview(isToLabel2)
+        
+        cardView.addSubview(fixButton)
+        cardView.addSubview(vectorView)
         
         setNeedsUpdateConstraints()
     }
@@ -89,17 +111,35 @@ class AnalogyTableViewCell: UITableViewCell {
         defer {
             super.updateConstraints()
         }
-        cardView.leadingAnchor == leadingAnchor + 30
-        cardView.trailingAnchor == trailingAnchor - 30
-        cardView.topAnchor == topAnchor + 15
+        cardView.leadingAnchor == contentView.leadingAnchor + 30
+        cardView.trailingAnchor == contentView.trailingAnchor - 30
+        cardView.topAnchor == contentView.topAnchor + 15
+        cardView.bottomAnchor == contentView.bottomAnchor - 15
         
-        staticAnalogyStartLabel.topAnchor == cardView.topAnchor + 20
+        taboolaHeader.leadingAnchor == cardView.leadingAnchor + 20
+        taboolaHeader.trailingAnchor == cardView.trailingAnchor - 20
+        taboolaHeader.topAnchor == cardView.topAnchor + 15
+        if isDisplayedTaboolaHeader {
+            taboolaHeader.heightAnchor == 12
+            taboolaHeader.isHidden = false
+        } else {
+            taboolaHeader.heightAnchor == 0
+            taboolaHeader.isHidden = true
+        }
+        
+        if isDisplayedTaboolaHeader {
+            staticAnalogyStartLabel.topAnchor == taboolaHeader.bottomAnchor + 10
+            taboolaHeader.isHidden = false
+        } else {
+            staticAnalogyStartLabel.topAnchor == taboolaHeader.bottomAnchor + 10
+            taboolaHeader.isHidden = true
+        }
         staticAnalogyStartLabel.leadingAnchor == cardView.leadingAnchor + 20
         
         changingAnalogyStartLabel.topAnchor == staticAnalogyStartLabel.bottomAnchor + 10
         changingAnalogyStartLabel.leadingAnchor == cardView.leadingAnchor + 20
         
-        staticAnalogyEndLabel.topAnchor == cardView.topAnchor + 20
+        staticAnalogyEndLabel.topAnchor == staticAnalogyStartLabel.topAnchor
         staticAnalogyEndLabel.trailingAnchor == cardView.trailingAnchor - 20
         
         changingAnalogyEndLabel.topAnchor == staticAnalogyEndLabel.bottomAnchor + 10
@@ -111,6 +151,16 @@ class AnalogyTableViewCell: UITableViewCell {
         isToLabel2.centerYAnchor == changingAnalogyStartLabel.centerYAnchor
         isToLabel2.centerXAnchor == cardView.centerXAnchor
         
-        cardView.bottomAnchor == changingAnalogyEndLabel.bottomAnchor + 20
+        fixButton.topAnchor == changingAnalogyEndLabel.bottomAnchor + 15
+        fixButton.trailingAnchor == cardView.trailingAnchor - 20
+        fixButton.heightAnchor == 55
+        fixButton.widthAnchor == 55
+        
+        vectorView.centerYAnchor == fixButton.centerYAnchor
+        vectorView.leadingAnchor == cardView.leadingAnchor + 20
+        vectorView.heightAnchor == 50
+        vectorView.widthAnchor == 50
+        
+        fixButton.bottomAnchor == cardView.bottomAnchor - 15
     }
 }

@@ -15,5 +15,7 @@ extension UIColor {
     static var progressBarRed = UIColor.init(named: "ProgressBarRed")
     static var analogyLabelGreen = UIColor.init(named: "AnalogyLabelGreen")
     static var analogyLabelRed = UIColor.init(named: "AnalogyLabelRed")
-    
+    static var fixButtonGreen = UIColor.init(named: "FixButtonGreen")
+    static var fixButtonFill = UIColor.init(named: "FixButtonFill")
+
 }

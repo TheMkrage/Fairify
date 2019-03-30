@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		38E8813EB7BA75D7142794E0 /* Pods_Fairify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C4DE433DC4C2E945C194871 /* Pods_Fairify.framework */; };
 		7E5B91E7224F659000B09233 /* AnalogyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91E6224F659000B09233 /* AnalogyLabel.swift */; };
+		7E5B91E9224FD81100B09233 /* FixButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91E8224FD81100B09233 /* FixButton.swift */; };
+		7E5B91EC224FDA3500B09233 /* VectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91EB224FDA3500B09233 /* VectorView.swift */; };
+		7E5B91EE224FE06000B09233 /* TaboolaHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91ED224FE06000B09233 /* TaboolaHeader.swift */; };
+		7E5B91F122501D9700B09233 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F022501D9700B09233 /* Arrow.swift */; };
+		7E5B91F322501E2100B09233 /* Bezier+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F222501E2100B09233 /* Bezier+Extension.swift */; };
 		7EB9BB65224F3BD500038CEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB63224F3BD500038CEB /* Main.storyboard */; };
 		7EB9BB67224F3BD600038CEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB66224F3BD600038CEB /* Assets.xcassets */; };
 		7EB9BB6A224F3BD600038CEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB68224F3BD600038CEB /* LaunchScreen.storyboard */; };
@@ -30,6 +35,11 @@
 		0E114B1D949690388A08BFCD /* Pods-Fairify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fairify/Pods-Fairify.debug.xcconfig"; sourceTree = "<group>"; };
 		7C4DE433DC4C2E945C194871 /* Pods_Fairify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fairify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E5B91E6224F659000B09233 /* AnalogyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogyLabel.swift; sourceTree = "<group>"; };
+		7E5B91E8224FD81100B09233 /* FixButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixButton.swift; sourceTree = "<group>"; };
+		7E5B91EB224FDA3500B09233 /* VectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorView.swift; sourceTree = "<group>"; };
+		7E5B91ED224FE06000B09233 /* TaboolaHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaboolaHeader.swift; sourceTree = "<group>"; };
+		7E5B91F022501D9700B09233 /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
+		7E5B91F222501E2100B09233 /* Bezier+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bezier+Extension.swift"; sourceTree = "<group>"; };
 		7EB9BB5C224F3BD500038CEB /* Fairify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fairify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB9BB64224F3BD500038CEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7EB9BB66224F3BD600038CEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,6 +96,27 @@
 				7E5B91E6224F659000B09233 /* AnalogyLabel.swift */,
 			);
 			path = Labels;
+			sourceTree = "<group>";
+		};
+		7E5B91EA224FDA1800B09233 /* AnalogyCell */ = {
+			isa = PBXGroup;
+			children = (
+				7E5B91EF22501D8900B09233 /* VectorView */,
+				7EB9BB8D224F578C00038CEB /* CardView.swift */,
+				7EB9BB86224F54E800038CEB /* AnalogyTableViewCell.swift */,
+				7E5B91E8224FD81100B09233 /* FixButton.swift */,
+				7E5B91ED224FE06000B09233 /* TaboolaHeader.swift */,
+			);
+			path = AnalogyCell;
+			sourceTree = "<group>";
+		};
+		7E5B91EF22501D8900B09233 /* VectorView */ = {
+			isa = PBXGroup;
+			children = (
+				7E5B91EB224FDA3500B09233 /* VectorView.swift */,
+				7E5B91F022501D9700B09233 /* Arrow.swift */,
+			);
+			path = VectorView;
 			sourceTree = "<group>";
 		};
 		7EB9BB53224F3BD500038CEB = {
@@ -164,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				7EB9BB82224F417700038CEB /* UIColor+Extension.swift */,
+				7E5B91F222501E2100B09233 /* Bezier+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -179,8 +211,7 @@
 		7EB9BB8F224F584F00038CEB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				7EB9BB8D224F578C00038CEB /* CardView.swift */,
-				7EB9BB86224F54E800038CEB /* AnalogyTableViewCell.swift */,
+				7E5B91EA224FDA1800B09233 /* AnalogyCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -309,17 +340,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E5B91E7224F659000B09233 /* AnalogyLabel.swift in Sources */,
+				7E5B91F122501D9700B09233 /* Arrow.swift in Sources */,
 				7EB9BB7E224F3DD500038CEB /* CommunityViewController.swift in Sources */,
 				7EB9BB93224F5CC900038CEB /* ProgressBar.swift in Sources */,
 				7EB9BB8E224F578C00038CEB /* CardView.swift in Sources */,
 				7EB9BB80224F40DC00038CEB /* FairifyLabel.swift in Sources */,
+				7E5B91E9224FD81100B09233 /* FixButton.swift in Sources */,
 				7EB9BB79224F3C3C00038CEB /* AppDelegate.swift in Sources */,
 				7EB9BB8A224F552B00038CEB /* Analogy.swift in Sources */,
+				7E5B91F322501E2100B09233 /* Bezier+Extension.swift in Sources */,
 				7EB9BB83224F417700038CEB /* UIColor+Extension.swift in Sources */,
 				7EB9BB91224F597B00038CEB /* CircleView.swift in Sources */,
 				7EB9BB7B224F3CDD00038CEB /* DashboardViewController.swift in Sources */,
+				7E5B91EC224FDA3500B09233 /* VectorView.swift in Sources */,
 				7EB9BB75224F3C2800038CEB /* HomeViewController.swift in Sources */,
 				7EB9BB87224F54E800038CEB /* AnalogyTableViewCell.swift in Sources */,
+				7E5B91EE224FE06000B09233 /* TaboolaHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

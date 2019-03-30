@@ -50,6 +50,8 @@ class DashboardViewController: UIViewController {
         t.backgroundColor = .clear
         t.separatorStyle = .none
         t.rowHeight = UITableView.automaticDimension
+        t.estimatedRowHeight = 100
+        t.isUserInteractionEnabled = true
         return t
     }()
     
@@ -64,6 +66,10 @@ class DashboardViewController: UIViewController {
         view.addSubview(tableView)
         
         setupConstraints()
+    }
+    
+    @objc func fixPressed(_ sender: FixButton) {
+        sender.showCheck()
     }
     
     func setupConstraints() {
@@ -106,6 +112,18 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         cell.staticAnalogyEndLabel.text = "Professor"
         cell.changingAnalogyStartLabel.text = "Woman"
         cell.changingAnalogyEndLabel.text = "Teacher"
+        cell.contentView.isUserInteractionEnabled = true
+        cell.fixButton.tag = indexPath.row
+        cell.fixButton.addTarget(self, action: #selector(fixPressed(_:)), for: .touchUpInside)
+        cell.layoutIfNeeded()
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }

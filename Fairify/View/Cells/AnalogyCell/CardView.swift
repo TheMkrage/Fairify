@@ -14,6 +14,7 @@ class CardView: UIView {
     }
     
     func initialize() {
+        isUserInteractionEnabled = true
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = false
         self.clipsToBounds = false
