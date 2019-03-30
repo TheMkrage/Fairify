@@ -16,10 +16,11 @@ class CardView: UIView {
     func initialize() {
         self.backgroundColor = UIColor.white
         self.layer.masksToBounds = false
+        self.clipsToBounds = false
         self.layer.cornerRadius = CardView.cardRadius
-        self.layer.shadowColor = UIColor.init(named: "shadow")?.cgColor
-        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        self.layer.shadowOpacity = 0.30
-        self.layer.shadowRadius = 6.0
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 4.0
     }
 }

@@ -11,4 +11,9 @@ import UIKit
 extension UIColor {
     static var fairifyPurple = UIColor.init(named: "FairifyPurple")
     static var darkPurple = UIColor.init(named: "DarkPurple")
+    static var progressBarGreen = UIColor.init(named: "ProgressBarGreen")
+    static var progressBarRed = UIColor.init(named: "ProgressBarRed")
+    static var analogyLabelGreen = UIColor.init(named: "AnalogyLabelGreen")
+    static var analogyLabelRed = UIColor.init(named: "AnalogyLabelRed")
+    
 }
