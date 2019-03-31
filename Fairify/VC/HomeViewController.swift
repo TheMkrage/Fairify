@@ -50,6 +50,14 @@ class HomeViewController: UIViewController {
     
     var ref: DatabaseReference!
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         print(handle)
         ref.child("models").removeObserver(withHandle: handle)
@@ -70,8 +78,16 @@ class HomeViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setNeedsStatusBarAppearanceUpdate()
+        sleep(2)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .lightContent
+        setNeedsStatusBarAppearanceUpdate()
         view.backgroundColor = UIColor.fairifyPurple
         
         ref = Database.database().reference()

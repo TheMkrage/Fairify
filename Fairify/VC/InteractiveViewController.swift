@@ -97,6 +97,12 @@ class InteractiveViewController: UIViewController {
         return b
     }()
     
+    var progress: UIActivityIndicatorView = {
+        let a = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        
+        return a
+    }()
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         ref.child("interactive").child("b2").removeAllObservers()
@@ -122,6 +128,7 @@ class InteractiveViewController: UIViewController {
                 self.changingAnalogyEnd.isGreenMode = false
                 self.changingAnalogyEnd.setTitle(val.capitalized, for: .normal)
                 self.markAsBiasedButton.isHidden = false
+                self.progress.stopAnimating()
             }
         }
         
@@ -143,10 +150,16 @@ class InteractiveViewController: UIViewController {
         
         view.addSubview(xButton)
         view.addSubview(markAsBiasedButton)
+        view.addSubview(progress)
         
         markAsBiasedButton.isHidden = true
+        progress.stopAnimating()
         
         setupConstraints()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     @objc func calculate() {
@@ -155,6 +168,7 @@ class InteractiveViewController: UIViewController {
         d["a2"] = staticAnalogyEnd.text
         d["b1"] = changingAnalogyStart.text
         ref.child("interactive").updateChildValues(d)
+        progress.startAnimating()
     }
     
     @objc func markAsBiased() {
@@ -203,6 +217,10 @@ class InteractiveViewController: UIViewController {
         markAsBiasedButton.topAnchor == changingAnalogyEnd.bottomAnchor + 45
         markAsBiasedButton.widthAnchor == 250
         markAsBiasedButton.heightAnchor == 45
+        
+        progress.centerAnchors == markAsBiasedButton.centerAnchors
+        progress.heightAnchor == 60
+        progress.widthAnchor == 60
         
         xButton.topAnchor == view.safeAreaLayoutGuide.topAnchor + 15
         xButton.leadingAnchor == view.safeAreaLayoutGuide.leadingAnchor + 20

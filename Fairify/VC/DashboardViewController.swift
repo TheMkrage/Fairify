@@ -91,6 +91,10 @@ class DashboardViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,8 +109,6 @@ class DashboardViewController: UIViewController {
                 let models = try FirebaseDecoder().decode([Model].self, from: value)
                 let first = models.first!
                 
-                print(self.model.analogies?.count ?? 0)
-                print(first.analogies?.count ?? 0)
                 if self.model.analogies?.count ?? 0 != first.analogies?.count ?? 0 {
                     self.tableView.reloadData()
                 }
@@ -222,7 +224,9 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = AnalogyTableViewCell()
         if indexPath.row >= filteredAnalogies.count {
-            return UITableViewCell()
+            let newCell = UITableViewCell()
+            newCell.backgroundColor = .clear
+            return newCell
         }
         let analogy = filteredAnalogies[indexPath.row]
         cell.staticAnalogyStartLabel.text = analogy.staticStartAnalogy

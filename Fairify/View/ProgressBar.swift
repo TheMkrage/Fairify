@@ -12,6 +12,7 @@ class ProgressBar: UIView {
     
     var percent: Int {
         didSet {
+            setNeedsLayout()
             layoutIfNeeded()
         }
     }
@@ -27,10 +28,14 @@ class ProgressBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var gradient: CAGradientLayer = CAGradientLayer()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        print("layout \(self.percent)")
         let floatRep = Double(self.percent) / 100.0
-        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.removeFromSuperlayer()
+        gradient = CAGradientLayer()
         
         let padding = 0.20
         
