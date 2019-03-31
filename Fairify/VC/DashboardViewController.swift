@@ -11,27 +11,22 @@ import Anchorage
 
 class DashboardViewController: UIViewController {
     
-    var topLabel: UILabel = {
+    lazy var topLabel: UILabel = {
         let t = UILabel()
         t.textColor = .white
-        t.text = "Ishaan Model"
+        t.text = self.model.name
         t.textAlignment = .center
         t.font = UIFont(name: "HelveticaNeue-Bold", size: 28.0)
         return t
     }()
     
-    var backButton: UIButton = {
-        let b = UIButton()
-        return b
-    }()
-    
-    var progressBar: ProgressBar = {
-        let p = ProgressBar()
+    lazy var progressBar: ProgressBar = {
+        let p = ProgressBar(percent: Int(self.model.percent))
         return p
     }()
     
-    var circleView: CircleView = {
-        let c = CircleView(percent: 25)
+    lazy var circleView: CircleView = {
+        let c = CircleView(percent: Int(self.model.percent))
         return c
     }()
     
@@ -55,6 +50,14 @@ class DashboardViewController: UIViewController {
         return t
     }()
     
+    var backButton: UIButton = {
+        let v = UIButton()
+        v.isUserInteractionEnabled = true
+        v.setImage(UIImage(named: "back"), for: .normal)
+        v.tintColor = .white
+        return v
+    }()
+    
     var model: Model
     
     init(model: Model) {
@@ -69,6 +72,8 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -81,6 +86,14 @@ class DashboardViewController: UIViewController {
     
     @objc func fixPressed(_ sender: FixButton) {
         sender.showCheck()
+        let analogy = model.analogies![sender.tag]
+        let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! AnalogyTableViewCell
+        cell.changingAnalogyEndLabel.state = .red
+        // set all starting vectors
+        cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorAfterX, y: analogy.staticStartVectorAfterY))
+        cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorAfterX, y: analogy.staticEndVectorAfterY))
+        cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorAfterX, y: analogy.changingStartVectorAfterY))
+        cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorAfterX, y: analogy.changingEndVectorAfterY))
     }
     
     func setupConstraints() {
@@ -94,6 +107,8 @@ class DashboardViewController: UIViewController {
         
         backButton.centerYAnchor == topLabel.centerYAnchor
         backButton.leadingAnchor == view.leadingAnchor + 20
+        backButton.heightAnchor == 45
+        backButton.widthAnchor == 45
         
         circleView.topAnchor == topLabel.bottomAnchor + 20
         circleView.trailingAnchor == view.trailingAnchor - 30
@@ -113,21 +128,29 @@ class DashboardViewController: UIViewController {
 
 extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return model.analogies?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = AnalogyTableViewCell()
-        cell.staticAnalogyStartLabel.text = "Man"
-        cell.staticAnalogyEndLabel.text = "Professor"
-        cell.changingAnalogyStartLabel.text = "Woman"
-        cell.changingAnalogyEndLabel.text = "Teacher"
+        let analogy = model.analogies![indexPath.row]
+        cell.staticAnalogyStartLabel.text = analogy.staticStartAnalogy
+        cell.staticAnalogyEndLabel.text = analogy.staticEndAnalogy
+        cell.changingAnalogyStartLabel.text = analogy.changingStartAnalogy
+        cell.changingAnalogyEndLabel.text = analogy.changingEndAnalogy
+        cell.isDisplayedTaboolaHeader = analogy.taboolaUrl != nil
         cell.contentView.isUserInteractionEnabled = true
         cell.fixButton.tag = indexPath.row
         cell.fixButton.addTarget(self, action: #selector(fixPressed(_:)), for: .touchUpInside)
         cell.layoutIfNeeded()
-        cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: 0.5, y: 0.5))
+        
+        // set all starting vectors
+        cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorBeforeX, y: analogy.staticStartVectorBeforeY))
+        cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorBeforeX, y: analogy.staticEndVectorBeforeY))
+        cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorBeforeX, y: analogy.changingStartVectorBeforeY))
+        cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorBeforeX, y: analogy.changingEndVectorBeforeY))
+        
         return cell
     }
     

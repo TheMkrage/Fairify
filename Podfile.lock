@@ -4,6 +4,7 @@ PODS:
   - Charts (3.2.1):
     - Charts/Core (= 3.2.1)
   - Charts/Core (3.2.1)
+  - CodableFirebase (0.2.1)
   - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.4.0)
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - Alamofire
   - Anchorage
   - Charts
+  - CodableFirebase
   - Firebase/Core
   - Firebase/Database
 
@@ -75,6 +77,7 @@ SPEC REPOS:
     - Alamofire
     - Anchorage
     - Charts
+    - CodableFirebase
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuthInterop
@@ -90,6 +93,7 @@ SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Anchorage: 21a98675245188427f0bcea21404d42a824a766f
   Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
+  CodableFirebase: 0bf201991eeec35eb9fcd987d271ea463cf34a80
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
@@ -101,6 +105,6 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: 15b9a1950bacf6f553e0b993be44a59149633827
+PODFILE CHECKSUM: 8fd260a9c7a6a3facb94ca762dd19eb82e015a8d
 
 COCOAPODS: 1.5.2

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1960557389AFAF6F5E92025D8F22B6DB"
-               BlueprintName = "Pods-Fairify"
+               BlueprintIdentifier = "854357DC95CF8B8417BCC64BEA5B978C"
+               BlueprintName = "CodableFirebase"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Pods-Fairify.framework">
+               BuildableName = "CodableFirebase.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

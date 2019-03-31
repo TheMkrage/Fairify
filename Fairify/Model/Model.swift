@@ -10,6 +10,6 @@ import UIKit
 
 class Model: Codable {
     var name: String
-    var analogies: [Analogy]
+    var analogies: [Analogy]?
     var percent: CGFloat
 }

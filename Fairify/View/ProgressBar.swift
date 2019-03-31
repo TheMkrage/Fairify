@@ -10,7 +10,14 @@ import UIKit
 
 class ProgressBar: UIView {
     
-    init() {
+    var percent: Int {
+        didSet {
+            layoutIfNeeded()
+        }
+    }
+    
+    init(percent: Int) {
+        self.percent = percent
         super.init(frame: .zero)
         layer.cornerRadius = 14.0
         clipsToBounds = true
@@ -22,12 +29,15 @@ class ProgressBar: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        let floatRep = Double(self.percent) / 100.0
         let gradient: CAGradientLayer = CAGradientLayer()
+        
+        let padding = 0.20
         
         gradient.colors = [UIColor.progressBarGreen.cgColor, UIColor.progressBarRed.cgColor]
         gradient.locations = [0.0 , 1.00]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradient.endPoint = CGPoint(x: floatRep + padding, y: 0.5)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
         
         layer.insertSublayer(gradient, at: 0)
