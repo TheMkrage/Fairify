@@ -42,6 +42,12 @@ class Analogy: Codable {
     
     var shouldFix: Bool
     var isFixed: Bool
+    
+    var isPoweredByTaboola: Bool {
+        get {
+            return taboolaUrl != "" && taboolaUrl != nil
+        }
+    }
 
     // mapping database variables to Swift ones
     enum CodingKeys: String, CodingKey {
@@ -69,7 +75,7 @@ class Analogy: Codable {
         case changingStartAnalogy = "b1"
         case changingEndAnalogy = "b2"
         
-        case taboolaUrl = "taboolaUrl"
+        case taboolaUrl = "taboola_url"
         
         case isUser = "is_user"
         case shouldFix = "should_fix"

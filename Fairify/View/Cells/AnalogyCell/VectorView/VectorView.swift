@@ -84,23 +84,23 @@ class VectorView: UIView {
         return CGRect(x: arrowPadding, y: bounds.maxY - arrowPadding - adustedHeight, width: adjustedWidth, height: adustedHeight)
     }
     
-    func setStaticStartArrow(point: CGPoint) {
+    func setStaticStartArrow(point: CGPoint, shouldAnimate: Bool, isFirst: Bool) {
         checkForFirst()
-        staticStartArrow.animate(newFrame: getAdjustedFrame(point: point))
+        staticStartArrow.animate(newFrame: getAdjustedFrame(point: point), shouldAnimate: shouldAnimate, isFirst: isFirst)
     }
     
-    func setStaticEndArrow(point: CGPoint) {
+    func setStaticEndArrow(point: CGPoint, shouldAnimate: Bool, isFirst: Bool) {
         checkForFirst()
-        staticEndArrow.animate(newFrame: getAdjustedFrame(point: point))
+        staticEndArrow.animate(newFrame: getAdjustedFrame(point: point), shouldAnimate: shouldAnimate, isFirst: isFirst)
     }
     
-    func setChangingStartArrow(point: CGPoint) {
+    func setChangingStartArrow(point: CGPoint, shouldAnimate: Bool, isFirst: Bool) {
         checkForFirst()
-        changingStartArrow.animate(newFrame: getAdjustedFrame(point: point))
+        changingStartArrow.animate(newFrame: getAdjustedFrame(point: point), shouldAnimate: shouldAnimate, isFirst: isFirst)
     }
     
-    func setChangingEndArrow(point: CGPoint) {
+    func setChangingEndArrow(point: CGPoint, shouldAnimate: Bool, isFirst: Bool) {
         checkForFirst()
-        changingEndArrow.animate(newFrame: getAdjustedFrame(point: point))
+        changingEndArrow.animate(newFrame: getAdjustedFrame(point: point), shouldAnimate: shouldAnimate, isFirst: isFirst)
     }
 }

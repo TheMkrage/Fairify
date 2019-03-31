@@ -120,7 +120,8 @@ class InteractiveViewController: UIViewController {
         ref.child("interactive").child("b2").observe(.value) { (snapshot) in
             if let val = snapshot.value as? String, val != "" {
                 self.changingAnalogyEnd.isGreenMode = false
-                self.changingAnalogyEnd.setTitle(val.uppercased(), for: .normal)
+                self.changingAnalogyEnd.setTitle(val.capitalized, for: .normal)
+                self.markAsBiasedButton.isHidden = false
             }
         }
         
@@ -143,6 +144,8 @@ class InteractiveViewController: UIViewController {
         view.addSubview(xButton)
         view.addSubview(markAsBiasedButton)
         
+        markAsBiasedButton.isHidden = true
+        
         setupConstraints()
     }
     
@@ -158,6 +161,7 @@ class InteractiveViewController: UIViewController {
         var d = [String: Any]()
         d["biased"] = true
         ref.child("interactive").updateChildValues(d)
+        self.dismiss(animated: true, completion: nil)
     }
 
     func setupConstraints() {
@@ -208,6 +212,7 @@ class InteractiveViewController: UIViewController {
 extension InteractiveViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         self.changingAnalogyEnd.isGreenMode = true
+        markAsBiasedButton.isHidden = true
         return true
     }
 }

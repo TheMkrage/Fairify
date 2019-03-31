@@ -73,6 +73,16 @@ class AnalogyTableViewCell: UITableViewCell {
         return v
     }()
     
+    var learnMoreButton: UIButton = {
+        let b = UIButton()
+        b.backgroundColor = UIColor(named: "TaboolaButton")
+        b.layer.cornerRadius = 8
+        b.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 12.0)
+        b.setTitle("Learn More", for: .normal)
+        b.setTitleColor(.white, for: .normal)
+        return b
+    }()
+    
     var isDisplayedTaboolaHeader: Bool {
         didSet {
             setNeedsUpdateConstraints()
@@ -97,6 +107,7 @@ class AnalogyTableViewCell: UITableViewCell {
         cardView.addSubview(isToLabel1)
         cardView.addSubview(isToLabel2)
         
+        cardView.addSubview(learnMoreButton)
         cardView.addSubview(fixButton)
         cardView.addSubview(vectorView)
         
@@ -122,9 +133,11 @@ class AnalogyTableViewCell: UITableViewCell {
         if isDisplayedTaboolaHeader {
             taboolaHeader.heightAnchor == 12
             taboolaHeader.isHidden = false
+            learnMoreButton.isHidden = false
         } else {
             taboolaHeader.heightAnchor == 0
             taboolaHeader.isHidden = true
+            learnMoreButton.isHidden = true
         }
         
         if isDisplayedTaboolaHeader {
@@ -160,6 +173,11 @@ class AnalogyTableViewCell: UITableViewCell {
         vectorView.leadingAnchor == cardView.leadingAnchor + 22
         vectorView.heightAnchor == 60
         vectorView.widthAnchor == 60
+        
+        learnMoreButton.widthAnchor == 85
+        learnMoreButton.heightAnchor == 25
+        learnMoreButton.centerYAnchor == fixButton.centerYAnchor
+        learnMoreButton.centerXAnchor == cardView.centerXAnchor
         
         fixButton.bottomAnchor == cardView.bottomAnchor - 15
     }

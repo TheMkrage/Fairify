@@ -24,9 +24,19 @@ class Arrow: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func animate(newFrame: CGRect) {
-        UIView.animate(withDuration: 3.0) {
+    func animate(newFrame: CGRect, shouldAnimate: Bool, isFirst: Bool) {
+        if !shouldAnimate {
             self.frame = newFrame
+            return
+        }
+        if isFirst {
+            UIView.animate(withDuration: 0.25) {
+                self.frame = newFrame
+            }
+        } else {
+            UIView.animate(withDuration: 1.5) {
+                self.frame = newFrame
+            }
         }
     }
     

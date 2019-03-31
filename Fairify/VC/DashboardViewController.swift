@@ -10,6 +10,7 @@ import UIKit
 import Anchorage
 import CodableFirebase
 import FirebaseDatabase
+import SafariServices
 
 class DashboardViewController: UIViewController {
     
@@ -74,7 +75,7 @@ class DashboardViewController: UIViewController {
                 return []
             }
             return analogies.sorted { (a1, a2) -> Bool in
-                return a1.isUser || a1.taboolaUrl != nil
+                return a1.isUser
             }
         }
     }
@@ -103,16 +104,24 @@ class DashboardViewController: UIViewController {
             do {
                 let models = try FirebaseDecoder().decode([Model].self, from: value)
                 let first = models.first!
+                
+                print(self.model.analogies?.count ?? 0)
+                print(first.analogies?.count ?? 0)
+                if self.model.analogies?.count ?? 0 != first.analogies?.count ?? 0 {
+                    self.tableView.reloadData()
+                }
+                
                 self.model = first
                 for i in 0..<(self.model.analogies?.count ?? 0) {
                     let analogy = self.model.analogies![i]
                     analogy.index = i
                 }
+                
                 // update view
                 let percent = Int(100.0 * first.percent)
                 self.circleView.percentLabel.text = "\(percent)%"
                 self.progressBar.percent = percent
-                self.tableView.reloadData()
+                
             } catch let error {
                 print(error)
             }
@@ -134,21 +143,38 @@ class DashboardViewController: UIViewController {
         present(vc, animated: true, completion: nil)
     }
     
+    @objc func learnMorePressed(_ sender: UIButton) {
+        let analogy = filteredAnalogies[sender.tag]
+        
+        if let url = URL(string: analogy.taboolaUrl ?? "") {
+            let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+            self.present(vc, animated: true)
+        }
+    }
+    
     @objc func fixPressed(_ sender: FixButton) {
         sender.showCheck()
         let analogy = filteredAnalogies[sender.tag]
+        if analogy.isFixed || analogy.shouldFix {
+            return
+        }
         let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! AnalogyTableViewCell
         cell.changingAnalogyEndLabel.state = .green
         cell.changingAnalogyEndLabel.text = analogy.staticEndAnalogy
-        // set all starting vectors
-        cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorAfterX, y: analogy.staticStartVectorAfterY))
-        cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorAfterX, y: analogy.staticEndVectorAfterY))
-        cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorAfterX, y: analogy.changingStartVectorAfterY))
-        cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorAfterX, y: analogy.changingEndVectorAfterY))
+        // set all ending vectors
+        cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorAfterX, y: analogy.staticStartVectorAfterY), shouldAnimate: true, isFirst: false)
+        cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorAfterX, y: analogy.staticEndVectorAfterY), shouldAnimate: true, isFirst: false)
+        cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorAfterX, y: analogy.changingStartVectorAfterY), shouldAnimate: true, isFirst: false)
+        cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorAfterX, y: analogy.changingEndVectorAfterY), shouldAnimate: true, isFirst: false)
+        
         
         guard let index = analogy.index else {
+            print("holdy shit there is nothing")
             return
         }
+        
+        print("index for : \(index) \(analogy.changingStartAnalogy)")
+        print(index)
         ref.child("models").child("0").child("analogies").child("\(index)").updateChildValues(["should_fix": true])
     }
     
@@ -195,29 +221,40 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = AnalogyTableViewCell()
+        if indexPath.row >= filteredAnalogies.count {
+            return UITableViewCell()
+        }
         let analogy = filteredAnalogies[indexPath.row]
         cell.staticAnalogyStartLabel.text = analogy.staticStartAnalogy
         cell.staticAnalogyEndLabel.text = analogy.staticEndAnalogy
         cell.changingAnalogyStartLabel.text = analogy.changingStartAnalogy
-        cell.changingAnalogyEndLabel.text = analogy.changingEndAnalogy
-        cell.isDisplayedTaboolaHeader = analogy.taboolaUrl != nil
+        
+        cell.isDisplayedTaboolaHeader = analogy.isPoweredByTaboola
         cell.contentView.isUserInteractionEnabled = true
         cell.fixButton.tag = indexPath.row
         cell.fixButton.addTarget(self, action: #selector(fixPressed(_:)), for: .touchUpInside)
+        cell.learnMoreButton.tag = indexPath.row
+        cell.learnMoreButton.addTarget(self, action: #selector(learnMorePressed(_:)), for: .touchUpInside)
+        cell.layoutIfNeeded()
         
         if analogy.isFixed || analogy.shouldFix {
             cell.fixButton.showCheck()
+            cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorAfterX, y: analogy.staticStartVectorAfterY), shouldAnimate: false, isFirst: false)
+            cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorAfterX, y: analogy.staticEndVectorAfterY), shouldAnimate: false, isFirst: false)
+            cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorAfterX, y: analogy.changingStartVectorAfterY), shouldAnimate: false, isFirst: false)
+            cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorAfterX, y: analogy.changingEndVectorAfterY), shouldAnimate: false, isFirst: false)
+            cell.changingAnalogyEndLabel.text = analogy.staticEndAnalogy
+            cell.changingAnalogyEndLabel.state = .green
         } else {
             cell.fixButton.showFix()
+            // set all starting vectors
+            cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorBeforeX, y: analogy.staticStartVectorBeforeY), shouldAnimate: false, isFirst: false)
+            cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorBeforeX, y: analogy.staticEndVectorBeforeY), shouldAnimate: false, isFirst: false)
+            cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorBeforeX, y: analogy.changingStartVectorBeforeY), shouldAnimate: false, isFirst: false)
+            cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorBeforeX, y: analogy.changingEndVectorBeforeY), shouldAnimate: false, isFirst: false)
+            cell.changingAnalogyEndLabel.text = analogy.changingEndAnalogy
+            cell.changingAnalogyEndLabel.state = .red
         }
-        
-        cell.layoutIfNeeded()
-        
-        // set all starting vectors
-        cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorBeforeX, y: analogy.staticStartVectorBeforeY))
-        cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorBeforeX, y: analogy.staticEndVectorBeforeY))
-        cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorBeforeX, y: analogy.changingStartVectorBeforeY))
-        cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorBeforeX, y: analogy.changingEndVectorBeforeY))
         
         return cell
     }
