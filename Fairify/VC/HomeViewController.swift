@@ -8,6 +8,8 @@
 
 import UIKit
 import Anchorage
+import FirebaseDatabase
+import CodableFirebase
 
 class HomeViewController: UIViewController {
     
@@ -25,46 +27,62 @@ class HomeViewController: UIViewController {
         l.font = UIFont(name: "HelveticaNeue", size: 22.0)
         return l
     }()
-
-    var myModelsButton: UIButton = {
-        let b = UIButton()
-        b.setTitle("My Models", for: .normal)
-        b.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 24.0)
-        b.addTarget(self, action: #selector(moveToDashboard(_:)), for: .touchUpInside)
-        b.backgroundColor = UIColor.darkPurple
-        b.layer.borderColor = UIColor.white.cgColor
-        b.layer.borderWidth = 3.0
-        b.layer.cornerRadius = 25.0
-        return b
+    
+    var guyImage: UIImageView = {
+        let i = UIImageView(image: UIImage(named: "CartoonGuy"))
+        return i
     }()
     
-    var communityButton: UIButton = {
-        let b = UIButton()
-        b.setTitle("Fairify Community", for: .normal)
-        b.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 24.0)
-        b.addTarget(self, action: #selector(moveToCommunity(_:)), for: .touchUpInside)
-        b.backgroundColor = .gray
-        b.backgroundColor = UIColor.darkPurple
-        b.layer.borderColor = UIColor.white.cgColor
-        b.layer.borderWidth = 3.0
-        b.layer.cornerRadius = 25.0
-        return b
+    var girlImage: UIImageView = {
+        let i = UIImageView(image: UIImage(named: "CartoonGirl"))
+        return i
     }()
+    
+    var waitingForModel: UILabel = {
+        let i = UILabel()
+        i.textColor = .white
+        i.font = UIFont(name: "HelveticaNeue", size: 18.0)
+        i.text = "Waiting for Model..."
+        return i
+    }()
+    
+    var handle: UInt = 0
+    
+    var ref: DatabaseReference!
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print(handle)
+        ref.child("models").removeObserver(withHandle: handle)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+        handle = ref.child("models").observe(.value) { (snapshot) in
+            guard let value = snapshot.value else { return }
+            do {
+                let models = try FirebaseDecoder().decode([Model].self, from: value)
+                let first = models.first!
+                let vc = DashboardViewController(model: first)
+                self.show(vc, sender: self)
+            } catch let error {
+                print(error)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.fairifyPurple
         
+        ref = Database.database().reference()
+        
         view.addSubview(titleLabel)
         view.addSubview(promoLabel)
-        view.addSubview(myModelsButton)
-        view.addSubview(communityButton)
+        view.addSubview(guyImage)
+        view.addSubview(girlImage)
+        view.addSubview(waitingForModel)
         
         setupConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
     }
     
     func setupConstraints() {
@@ -74,25 +92,18 @@ class HomeViewController: UIViewController {
         promoLabel.topAnchor == titleLabel.bottomAnchor + 30
         promoLabel.leadingAnchor == view.leadingAnchor + 30
         promoLabel.trailingAnchor == view.trailingAnchor - 30
-
-        myModelsButton.topAnchor == promoLabel.bottomAnchor + 50
-        myModelsButton.leadingAnchor == view.leadingAnchor + 40
-        myModelsButton.trailingAnchor == view.trailingAnchor - 40
+   
+        girlImage.leadingAnchor == view.leadingAnchor + 60
+        girlImage.centerYAnchor == view.centerYAnchor + 25
+        girlImage.heightAnchor == 203
+        girlImage.widthAnchor == 111
         
-        communityButton.topAnchor == myModelsButton.bottomAnchor + 50
-        communityButton.leadingAnchor == view.leadingAnchor + 40
-        communityButton.trailingAnchor == view.trailingAnchor - 40
-        communityButton.bottomAnchor == view.safeAreaLayoutGuide.bottomAnchor - 30
-        communityButton.heightAnchor == myModelsButton.heightAnchor
-    }
-    
-    @objc private func moveToDashboard(_ sender: UIButton) {
-        let vc = ModelsViewController()
-        show(vc, sender: self)
-    }
-    
-    @objc private func moveToCommunity(_ sender: UIButton) {
-        let vc = CommunityViewController()
-        show(vc, sender: self)
+        guyImage.trailingAnchor == view.trailingAnchor - 60
+        guyImage.bottomAnchor == girlImage.bottomAnchor
+        guyImage.heightAnchor == 260
+        guyImage.widthAnchor == 74
+        
+        waitingForModel.centerXAnchor == view.centerXAnchor
+        waitingForModel.topAnchor == girlImage.bottomAnchor + 60
     }
 }

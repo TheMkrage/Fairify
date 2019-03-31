@@ -20,17 +20,17 @@ class VectorView: UIView {
     }()
     
     var staticEndArrow: Arrow = {
-        let a = Arrow(frame: .zero, color: UIColor.analogyLabelGreen)
+        let a = Arrow(frame: .zero, color: UIColor.analogyLabelRed)
         return a
     }()
     
     var changingStartArrow: Arrow = {
-        let a = Arrow(frame: .zero, color: UIColor.analogyLabelRed)
+        let a = Arrow(frame: .zero, color: UIColor.analogyLabelGreen)
         return a
     }()
     
     var changingEndArrow: Arrow = {
-        let a = Arrow(frame: .zero, color: UIColor.analogyLabelRed)
+        let a = Arrow(frame: .zero, color: UIColor.analogyLabelGreen)
         return a
     }()
     

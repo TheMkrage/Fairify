@@ -8,6 +8,8 @@
 
 import UIKit
 import Anchorage
+import CodableFirebase
+import FirebaseDatabase
 
 class DashboardViewController: UIViewController {
     
@@ -21,12 +23,12 @@ class DashboardViewController: UIViewController {
     }()
     
     lazy var progressBar: ProgressBar = {
-        let p = ProgressBar(percent: Int(self.model.percent))
+        let p = ProgressBar(percent: Int(100 * self.model.percent))
         return p
     }()
     
     lazy var circleView: CircleView = {
-        let c = CircleView(percent: Int(self.model.percent))
+        let c = CircleView(percent: Int(100 * self.model.percent))
         return c
     }()
     
@@ -58,7 +60,26 @@ class DashboardViewController: UIViewController {
         return v
     }()
     
+    var interactiveButton: Button = {
+        let b = Button()
+        b.setTitle("Interact with Your Model", for: .normal)
+        return b
+    }()
+    
     var model: Model
+    
+    var filteredAnalogies: [Analogy] {
+        get {
+            guard let analogies = model.analogies else {
+                return []
+            }
+            return analogies.sorted { (a1, a2) -> Bool in
+                return a1.isUser || a1.taboolaUrl != nil
+            }
+        }
+    }
+    
+    var ref: DatabaseReference!
     
     init(model: Model) {
         self.model = model
@@ -74,26 +95,61 @@ class DashboardViewController: UIViewController {
         
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         
+        interactiveButton.addTarget(self, action: #selector(interactivePressed(_:)), for: .touchUpInside)
+        
+        ref = Database.database().reference()
+        ref.child("models").observe(.value) { (snapshot) in
+            guard let value = snapshot.value else { return }
+            do {
+                let models = try FirebaseDecoder().decode([Model].self, from: value)
+                let first = models.first!
+                self.model = first
+                for i in 0..<(self.model.analogies?.count ?? 0) {
+                    let analogy = self.model.analogies![i]
+                    analogy.index = i
+                }
+                // update view
+                let percent = Int(100.0 * first.percent)
+                self.circleView.percentLabel.text = "\(percent)%"
+                self.progressBar.percent = percent
+                self.tableView.reloadData()
+            } catch let error {
+                print(error)
+            }
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
 
         view.backgroundColor = .fairifyPurple
         view.addSubview(topView)
         view.addSubview(tableView)
+        view.addSubview(interactiveButton)
         
         setupConstraints()
     }
     
+    @objc func interactivePressed(_ sender: UIButton) {
+        let vc = InteractiveViewController()
+        present(vc, animated: true, completion: nil)
+    }
+    
     @objc func fixPressed(_ sender: FixButton) {
         sender.showCheck()
-        let analogy = model.analogies![sender.tag]
+        let analogy = filteredAnalogies[sender.tag]
         let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! AnalogyTableViewCell
-        cell.changingAnalogyEndLabel.state = .red
+        cell.changingAnalogyEndLabel.state = .green
+        cell.changingAnalogyEndLabel.text = analogy.staticEndAnalogy
         // set all starting vectors
         cell.vectorView.setStaticStartArrow(point: CGPoint.init(x: analogy.staticStartVectorAfterX, y: analogy.staticStartVectorAfterY))
         cell.vectorView.setStaticEndArrow(point: CGPoint.init(x: analogy.staticEndVectorAfterX, y: analogy.staticEndVectorAfterY))
         cell.vectorView.setChangingStartArrow(point: CGPoint.init(x: analogy.changingStartVectorAfterX, y: analogy.changingStartVectorAfterY))
         cell.vectorView.setChangingEndArrow(point: CGPoint.init(x: analogy.changingEndVectorAfterX, y: analogy.changingEndVectorAfterY))
+        
+        guard let index = analogy.index else {
+            return
+        }
+        ref.child("models").child("0").child("analogies").child("\(index)").updateChildValues(["should_fix": true])
     }
     
     func setupConstraints() {
@@ -123,18 +179,23 @@ class DashboardViewController: UIViewController {
         tableView.topAnchor == topView.bottomAnchor + 10
         tableView.horizontalAnchors == view.horizontalAnchors
         tableView.bottomAnchor == view.safeAreaLayoutGuide.bottomAnchor
+        
+        interactiveButton.widthAnchor == 250
+        interactiveButton.heightAnchor == 45
+        interactiveButton.bottomAnchor == view.safeAreaLayoutGuide.bottomAnchor - 15
+        interactiveButton.trailingAnchor == view.safeAreaLayoutGuide.trailingAnchor - 15
     }
 }
 
 extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.analogies?.count ?? 0
+        return filteredAnalogies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = AnalogyTableViewCell()
-        let analogy = model.analogies![indexPath.row]
+        let analogy = filteredAnalogies[indexPath.row]
         cell.staticAnalogyStartLabel.text = analogy.staticStartAnalogy
         cell.staticAnalogyEndLabel.text = analogy.staticEndAnalogy
         cell.changingAnalogyStartLabel.text = analogy.changingStartAnalogy
@@ -143,6 +204,13 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         cell.contentView.isUserInteractionEnabled = true
         cell.fixButton.tag = indexPath.row
         cell.fixButton.addTarget(self, action: #selector(fixPressed(_:)), for: .touchUpInside)
+        
+        if analogy.isFixed || analogy.shouldFix {
+            cell.fixButton.showCheck()
+        } else {
+            cell.fixButton.showFix()
+        }
+        
         cell.layoutIfNeeded()
         
         // set all starting vectors

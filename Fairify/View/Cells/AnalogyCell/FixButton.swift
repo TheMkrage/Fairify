@@ -38,4 +38,9 @@ class FixButton: UIButton {
         setTitle("", for: .normal)
         setImage(UIImage(named: "check"), for: .normal)
     }
+    
+    func showFix() {
+        setTitle("Fix", for: .normal)
+        setImage(nil, for: .normal)
+    }
 }

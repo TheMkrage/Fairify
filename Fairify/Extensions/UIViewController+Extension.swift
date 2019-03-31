@@ -12,4 +12,8 @@ extension UIViewController {
     @objc func back() {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @objc func close() {
+       self.dismiss(animated: true, completion: nil)
+    }
 }

@@ -14,7 +14,6 @@ class Analogy: Codable {
     var staticEndAnalogy: String
     var changingStartAnalogy: String
     var changingEndAnalogy: String
-    var fairifiedChangingEndAnalogy: String
     
     var taboolaUrl: String?
 
@@ -36,34 +35,44 @@ class Analogy: Codable {
     var changingStartVectorAfterY: CGFloat
     var changingEndVectorAfterX: CGFloat
     var changingEndVectorAfterY: CGFloat
+    
+    var isUser: Bool
+    
+    var index: Int?
+    
+    var shouldFix: Bool
+    var isFixed: Bool
 
     // mapping database variables to Swift ones
     enum CodingKeys: String, CodingKey {
         // Before Vectors
-        case staticStartVectorBeforeX = "staticStartVectorBeforeX"
-        case staticStartVectorBeforeY = "staticStartVectorBeforeY"
-        case staticEndVectorBeforeX = "staticEndVectorBeforeX"
-        case staticEndVectorBeforeY = "staticEndVectorBeforeY"
-        case changingStartVectorBeforeX = "changingStartVectorBeforeX"
-        case changingStartVectorBeforeY = "changingStartVectorBeforeY"
-        case changingEndVectorBeforeX = "changingEndVectorBeforeX"
-        case changingEndVectorBeforeY = "changingEndVectorBeforeY"
+        case staticStartVectorBeforeX = "a1x"
+        case staticStartVectorBeforeY = "a1y"
+        case staticEndVectorBeforeX = "a2x"
+        case staticEndVectorBeforeY = "a2y"
+        case changingStartVectorBeforeX = "b1x"
+        case changingStartVectorBeforeY = "b1y"
+        case changingEndVectorBeforeX = "b2x"
+        case changingEndVectorBeforeY = "b2y"
         // After Vectors
-        case staticStartVectorAfterX = "staticStartVectorAfterX"
-        case staticStartVectorAfterY = "staticStartVectorAfterY"
-        case staticEndVectorAfterX = "staticEndVectorAfterX"
-        case staticEndVectorAfterY = "staticEndVectorAfterY"
-        case changingStartVectorAfterX = "changingStartVectorAfterX"
-        case changingStartVectorAfterY = "changingStartVectorAfterY"
-        case changingEndVectorAfterX = "changingEndVectorAfterX"
-        case changingEndVectorAfterY = "changingEndVectorAfterY"
+        case staticStartVectorAfterX = "a1xn"
+        case staticStartVectorAfterY = "a1yn"
+        case staticEndVectorAfterX = "a2xn"
+        case staticEndVectorAfterY = "a2yn"
+        case changingStartVectorAfterX = "b1xn"
+        case changingStartVectorAfterY = "b1yn"
+        case changingEndVectorAfterX = "b2xn"
+        case changingEndVectorAfterY = "b2yn"
         
-        case staticStartAnalogy = "staticStartAnalogy"
-        case staticEndAnalogy = "staticEndAnalogy"
-        case changingStartAnalogy = "changingStartAnalogy"
-        case changingEndAnalogy = "changingEndAnalogy"
-        case fairifiedChangingEndAnalogy = "fairifiedChangingEndAnalogy"
+        case staticStartAnalogy = "a1"
+        case staticEndAnalogy = "a2"
+        case changingStartAnalogy = "b1"
+        case changingEndAnalogy = "b2"
         
         case taboolaUrl = "taboolaUrl"
+        
+        case isUser = "is_user"
+        case shouldFix = "should_fix"
+        case isFixed = "is_fixed"
     }
 }

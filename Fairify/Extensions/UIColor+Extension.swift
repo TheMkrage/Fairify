@@ -17,5 +17,6 @@ extension UIColor {
     static var analogyLabelRed = UIColor.init(named: "AnalogyLabelRed")!
     static var fixButtonGreen = UIColor.init(named: "FixButtonGreen")!
     static var fixButtonFill = UIColor.init(named: "FixButtonFill")!
+    static var buttonRed = UIColor.init(named: "ButtonRed")!
 
 }

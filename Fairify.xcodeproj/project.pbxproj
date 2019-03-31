@@ -14,10 +14,13 @@
 		7E5B91EE224FE06000B09233 /* TaboolaHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91ED224FE06000B09233 /* TaboolaHeader.swift */; };
 		7E5B91F122501D9700B09233 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F022501D9700B09233 /* Arrow.swift */; };
 		7E5B91F322501E2100B09233 /* Bezier+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F222501E2100B09233 /* Bezier+Extension.swift */; };
-		7E5B91F522502F6E00B09233 /* ModelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F422502F6E00B09233 /* ModelsViewController.swift */; };
 		7E5B91F722502FB500B09233 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91F622502FB500B09233 /* Model.swift */; };
 		7E5B91F9225031D900B09233 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E5B91F8225031D900B09233 /* GoogleService-Info.plist */; };
 		7E5B91FB22503C4000B09233 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91FA22503C4000B09233 /* UIViewController+Extension.swift */; };
+		7E5B91FD2250795D00B09233 /* InteractiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91FC2250795D00B09233 /* InteractiveViewController.swift */; };
+		7E5B91FF225079B700B09233 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B91FE225079B700B09233 /* TextField.swift */; };
+		7E5B920122507B4600B09233 /* TextFieldLookingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B920022507B4600B09233 /* TextFieldLookingButton.swift */; };
+		7E5B920322509F4C00B09233 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B920222509F4C00B09233 /* Button.swift */; };
 		7EB9BB65224F3BD500038CEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB63224F3BD500038CEB /* Main.storyboard */; };
 		7EB9BB67224F3BD600038CEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB66224F3BD600038CEB /* Assets.xcassets */; };
 		7EB9BB6A224F3BD600038CEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB9BB68224F3BD600038CEB /* LaunchScreen.storyboard */; };
@@ -44,10 +47,13 @@
 		7E5B91ED224FE06000B09233 /* TaboolaHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaboolaHeader.swift; sourceTree = "<group>"; };
 		7E5B91F022501D9700B09233 /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		7E5B91F222501E2100B09233 /* Bezier+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bezier+Extension.swift"; sourceTree = "<group>"; };
-		7E5B91F422502F6E00B09233 /* ModelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsViewController.swift; sourceTree = "<group>"; };
 		7E5B91F622502FB500B09233 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		7E5B91F8225031D900B09233 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7E5B91FA22503C4000B09233 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		7E5B91FC2250795D00B09233 /* InteractiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveViewController.swift; sourceTree = "<group>"; };
+		7E5B91FE225079B700B09233 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		7E5B920022507B4600B09233 /* TextFieldLookingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldLookingButton.swift; sourceTree = "<group>"; };
+		7E5B920222509F4C00B09233 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		7EB9BB5C224F3BD500038CEB /* Fairify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fairify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB9BB64224F3BD500038CEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7EB9BB66224F3BD600038CEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,7 +176,7 @@
 				7EB9BB7C224F3DCA00038CEB /* Community */,
 				7EB9BB72224F3C2700038CEB /* HomeViewController.swift */,
 				7EB9BB7A224F3CDD00038CEB /* DashboardViewController.swift */,
-				7E5B91F422502F6E00B09233 /* ModelsViewController.swift */,
+				7E5B91FC2250795D00B09233 /* InteractiveViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -182,6 +188,9 @@
 				7EB9BB8F224F584F00038CEB /* Cells */,
 				7EB9BB90224F597B00038CEB /* CircleView.swift */,
 				7EB9BB92224F5CC900038CEB /* ProgressBar.swift */,
+				7E5B91FE225079B700B09233 /* TextField.swift */,
+				7E5B920022507B4600B09233 /* TextFieldLookingButton.swift */,
+				7E5B920222509F4C00B09233 /* Button.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -355,17 +364,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E5B91E7224F659000B09233 /* AnalogyLabel.swift in Sources */,
+				7E5B920322509F4C00B09233 /* Button.swift in Sources */,
+				7E5B91FF225079B700B09233 /* TextField.swift in Sources */,
 				7E5B91F122501D9700B09233 /* Arrow.swift in Sources */,
-				7E5B91F522502F6E00B09233 /* ModelsViewController.swift in Sources */,
 				7EB9BB7E224F3DD500038CEB /* CommunityViewController.swift in Sources */,
 				7EB9BB93224F5CC900038CEB /* ProgressBar.swift in Sources */,
 				7EB9BB8E224F578C00038CEB /* CardView.swift in Sources */,
 				7EB9BB80224F40DC00038CEB /* FairifyLabel.swift in Sources */,
 				7E5B91E9224FD81100B09233 /* FixButton.swift in Sources */,
 				7E5B91FB22503C4000B09233 /* UIViewController+Extension.swift in Sources */,
+				7E5B91FD2250795D00B09233 /* InteractiveViewController.swift in Sources */,
 				7EB9BB79224F3C3C00038CEB /* AppDelegate.swift in Sources */,
 				7EB9BB8A224F552B00038CEB /* Analogy.swift in Sources */,
 				7E5B91F322501E2100B09233 /* Bezier+Extension.swift in Sources */,
+				7E5B920122507B4600B09233 /* TextFieldLookingButton.swift in Sources */,
 				7EB9BB83224F417700038CEB /* UIColor+Extension.swift in Sources */,
 				7EB9BB91224F597B00038CEB /* CircleView.swift in Sources */,
 				7EB9BB7B224F3CDD00038CEB /* DashboardViewController.swift in Sources */,
